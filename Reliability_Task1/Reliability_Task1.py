@@ -9,16 +9,39 @@ timeStep = 10
 T = np.arange(0, 3000, timeStep)
 U = (T - M) / sigma
 
-density = 1.41 * 10**(-2) * np.exp(U**2 / 2)
-reliability = 1 - (0.5 * (1 + sp.erf(U / 2**0.5)))
+def F(v):
+    return (0.5 * (1 + sp.erf(v / 2**0.5)))
+
+def f(v):
+    return 1 / ((2*np.pi)**0.5 * sigma) * np.exp(-v**2 / 2)
+
+def F_inv(v):
+    return M + sigma * sp.erfinv((1-v)/0.5 - 1)
+
+density = f(U)
+reliability = 1 - F(U)
 intensity = density / reliability
+
+test = sp.erf(0)
+
+T_medium = M + 2*sigma / ((2*np.pi)**0.5 * (1 - F(-M/sigma))) * np.exp(-M**2/(2*sigma**2))
+
+T_090 = F_inv(0.90)
+T_095 = F_inv(0.95)
+T_099 = F_inv(0.99)
 
 for t in range(500, 2501, 500):
     print("Для t = {:d}:\n".format(t))
-    print("\tПлотность = {:.4f}\n".format(density[t // timeStep]))
-    print("\tНадежность = {:.4f}\n".format(reliability[t // timeStep]))
-    print("\tИнтенсивность = {:.4}\n\n".format(intensity[t // timeStep]))
+    print("\tПлотность = {:.6f}\n".format(density[t // timeStep]))
+    print("\tНадежность = {:.6f}\n".format(reliability[t // timeStep]))
+    print("\tИнтенсивность = {:.6}\n\n".format(intensity[t // timeStep]))
 
+print("Среднее время наработки на отказ: {:.4f}\n\n".format(T_medium))
+
+print("Гамма-процентный ресурс:\n")
+print("\tПри P = 0.90: {0:.4f}\n".format(T_090))
+print("\tПри P = 0.95: {0:.4f}\n".format(T_095))
+print("\tПри P = 0.99: {0:.4f}\n".format(T_099))
 
 num_cols = 2
 num_rows = 2
