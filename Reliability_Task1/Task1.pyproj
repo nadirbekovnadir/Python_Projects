@@ -3,13 +3,14 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>604eae55-6519-42b9-88be-9787827365a3</ProjectGuid>
-    <ProjectHome>.</ProjectHome>
-    <StartupFile>Reliability_Task1.py</StartupFile>
+    <ProjectHome>
+    </ProjectHome>
+    <StartupFile>Reley__distribution.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>Reliability_Task1</Name>
+    <Name>Task1</Name>
     <RootNamespace>Reliability_Task1</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -21,7 +22,10 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Reliability_Task1.py" />
+    <Compile Include="Reley__distribution.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Normal_distribution.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
