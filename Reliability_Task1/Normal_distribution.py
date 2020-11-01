@@ -9,14 +9,18 @@ timeStep = 10
 T = np.arange(0, 3000, timeStep)
 U = (T - M) / sigma
 
+
 def F(v):
-    return (0.5 * (1 + sp.erf(v / 2**0.5)))
+    return 0.5 * (1 + sp.erf(v / 2**0.5))
+
 
 def f(v):
     return 1 / ((2*np.pi)**0.5 * sigma) * np.exp(-v**2 / 2)
 
+
 def F_inv(v):
     return M + sigma * sp.erfinv((1-v)/0.5 - 1)
+
 
 density = f(U)
 reliability = 1 - F(U)
@@ -53,14 +57,14 @@ plt.subplot(num_rows, num_cols, 1)
 plt.xlabel("t")
 plt.ylabel("Плотность")
 plt.grid(True)
-plt.tight_layout(pad = pad_value)
+plt.tight_layout(pad=pad_value)
 plt.plot(T, density)
 
 plt.subplot(num_rows, num_cols, 2)
 plt.xlabel("t")
 plt.ylabel("Надежность")
 plt.grid(True)
-plt.tight_layout(pad = pad_value)
+plt.tight_layout(pad=pad_value)
 plt.plot(T, reliability)
 
 plt.subplot(num_rows, num_cols, 3)
@@ -74,10 +78,10 @@ plt.subplot(num_rows, num_cols, 4)
 plt.xlabel("t")
 plt.ylabel("All")
 plt.grid(True)
-plt.tight_layout(pad = pad_value)
-plt.plot(T, intensity, label = "Интенсивность")
-plt.plot(T, reliability, label = "Надежность")
-plt.plot(T, density, label = "Плотность")
+plt.tight_layout(pad=pad_value)
+plt.plot(T, intensity, label="Интенсивность")
+plt.plot(T, reliability, label="Надежность")
+plt.plot(T, density, label="Плотность")
 plt.ylim([-0.5, 5])
 plt.legend()
 

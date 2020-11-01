@@ -7,6 +7,7 @@ allData = pd.read_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\ФЭЛ+ЭН 2019.x
 
 print(allData["Дата оплаты"])
 
+
 def try_parsing_date(text):
     for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y'):
         try:
@@ -14,6 +15,7 @@ def try_parsing_date(text):
         except ValueError:
             pass
     return datetime.now()
+
 
 weekdays = [try_parsing_date(str(date)[0:10]).weekday() for date in allData["Дата оплаты"]]
 allData["День оплаты"] = np.array(weekdays)
@@ -30,35 +32,37 @@ print(allData["Год оплаты"])
 indexNames = allData[allData["Год оплаты"] == 2018].index
 allData.drop(indexNames , inplace=True)
 
+
 def pars_org(text):
-    if (str(text)[0] == "Ф"):
+    if str(text)[0] == "Ф":
         return "ФЭЛ"
     
-    if (str(text)[0] == "Э"):
+    if str(text)[0] == "Э":
         return "ЭН"
 
     return "Неизвестно"
 
+
 allData["Организация"] = np.array([pars_org(number) for number in allData["№ договора"]])
 
-sorteByPayDay = allData.sort_values(by=['День оплаты'])
-sorteByPayDay.to_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\WithWeekday_SortPayDay.xlsx")
+sortedByPayDay = allData.sort_values(by=['День оплаты'])
+sortedByPayDay.to_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\WithWeekday_SortPayDay.xlsx")
 
-sorteBySignatureDay = allData.sort_values(by=['День подписи'])
-sorteBySignatureDay.to_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\WithWeekday_SortSignatureDay.xlsx")
+sortedBySignatureDay = allData.sort_values(by=['День подписи'])
+sortedBySignatureDay.to_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\WithWeekday_SortSignatureDay.xlsx")
 
 FEL = allData[allData["Организация"] == "ФЭЛ"]
 
-sorteByPayDay = FEL.sort_values(by=['День оплаты'])
-sorteByPayDay.to_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\WithWeekday_SortPayDay_FEL.xlsx")
+sortedByPayDay = FEL.sort_values(by=['День оплаты'])
+sortedByPayDay.to_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\WithWeekday_SortPayDay_FEL.xlsx")
 
-sorteBySignatureDay = FEL.sort_values(by=['День подписи'])
-sorteBySignatureDay.to_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\WithWeekday_SortSignatureDay_FEL.xlsx")
+sortedBySignatureDay = FEL.sort_values(by=['День подписи'])
+sortedBySignatureDay.to_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\WithWeekday_SortSignatureDay_FEL.xlsx")
 
 EN = allData[allData["Организация"] == "ЭН"]
 
-sorteByPayDay = EN.sort_values(by=['День оплаты'])
-sorteByPayDay.to_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\WithWeekday_SortPayDay_EN.xlsx")
+sortedByPayDay = EN.sort_values(by=['День оплаты'])
+sortedByPayDay.to_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\WithWeekday_SortPayDay_EN.xlsx")
 
-sorteBySignatureDay = EN.sort_values(by=['День подписи'])
-sorteBySignatureDay.to_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\WithWeekday_SortSignatureDay_EN.xlsx")
+sortedBySignatureDay = EN.sort_values(by=['День подписи'])
+sortedBySignatureDay.to_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\WithWeekday_SortSignatureDay_EN.xlsx")
