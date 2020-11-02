@@ -3,7 +3,7 @@ import numpy as np
 
 from datetime import datetime
 
-allData = pd.read_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\ФЭЛ+ЭН 2019.xlsx")
+allData = pd.read_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\2020\\2020.xlsx")
 
 
 def try_parsing_date(text):
@@ -19,7 +19,7 @@ months = [try_parsing_date(str(date)[0:10]).month for date in allData["Дата 
 allData["Месяц оплаты"] = np.array(months)
 print(allData["Месяц оплаты"])
 
-months = [try_parsing_date(str(date)[0:10]).month for date in allData["Дата подписи"]]
+months = [try_parsing_date(str(date)[0:10]).month for date in allData["Дата подписания"]]
 allData["Месяц подписи"] = np.array(months)
 print(allData["Месяц подписи"])
 
@@ -27,7 +27,7 @@ year = [try_parsing_date(str(date)[0:10]).year for date in allData["Дата о�
 allData["Год оплаты"] = np.array(year)
 print(allData["Год оплаты"])
 
-indexNames = allData[allData["Год оплаты"] == 2018].index
+indexNames = allData[allData["Год оплаты"] == 2019].index
 allData.drop(indexNames , inplace=True)
 
 
@@ -41,28 +41,28 @@ def pars_org(text):
     return "Неизвестно"
 
 
-allData["Организация"] = np.array([pars_org(number) for number in allData["№ договора"]])
+allData["Организация"] = np.array([pars_org(number) for number in allData["Договор"]])
 
 sortedByPayMonth = allData.sort_values(by=['Месяц оплаты'])
-sortedByPayMonth.to_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\WithWeekday_SortPayMonth.xlsx")
+sortedByPayMonth.to_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\2020\\SortPayMonth.xlsx")
 
 sortedBySignatureMonth = allData.sort_values(by=['Месяц подписи'])
-sortedBySignatureMonth.to_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\WithWeekday_SortSignatureMonth.xlsx")
+sortedBySignatureMonth.to_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\2020\\SortSignatureMonth.xlsx")
 
 FEL = allData[allData["Организация"] == "ФЭЛ"]
 print(FEL)
 
 sortedByPayMonth = FEL.sort_values(by=['Месяц оплаты'])
-sortedByPayMonth.to_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\WithWeekday_SortPayMonth_FEL.xlsx")
+sortedByPayMonth.to_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\2020\\SortPayMonth_FEL.xlsx")
 
 sortedBySignatureMonth = FEL.sort_values(by=['Месяц подписи'])
-sortedBySignatureMonth.to_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\WithWeekday_SortSignatureMonth_FEL.xlsx")
+sortedBySignatureMonth.to_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\2020\\SortSignatureMonth_FEL.xlsx")
 
 EN = allData[allData["Организация"] == "ЭН"]
 print(EN)
 
 sortedByPayMonth = EN.sort_values(by=['Месяц оплаты'])
-sortedByPayMonth.to_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\WithWeekday_SortPayMonth_EN.xlsx")
+sortedByPayMonth.to_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\2020\\SortPayMonth_EN.xlsx")
 
 sortedBySignatureMonth = EN.sort_values(by=['Месяц подписи'])
-sortedBySignatureMonth.to_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\WithWeekday_SortSignatureMonth_EN.xlsx")
+sortedBySignatureMonth.to_excel("C:\\Users\\nadir\\Desktop\\Dahaster\\2020\\SortSignatureMonth_EN.xlsx")
